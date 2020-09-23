@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage("A") {
+        stage("dev") {
             options {
                 timeout(time: 3, unit: "SECONDS")
             }
@@ -13,7 +13,7 @@ pipeline {
 
                     catchError(buildResult: 'SUCCESS', stageResult: 'ABORTED') { 
                         try { 
-                            echo "Started stage A"
+                            echo "Started stage development"
                             sleep(time: 5, unit: "SECONDS")
                         } catch (org.jenkinsci.plugins.workflow.steps.FlowInterruptedException e) {
                             error "Caught ${e.toString()}" 
@@ -28,9 +28,9 @@ pipeline {
                 }
             }
         }
-        stage("B") {
+        stage("prod") {
             steps {
-                echo "Started stage B"
+                echo "Started stage production"
             }
         }
     }
